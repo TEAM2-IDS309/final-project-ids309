@@ -1,7 +1,7 @@
-﻿using FinalProjectIDS309.Backend.Entities;
+﻿using FinalProjectIDS309.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinalProjectIDS309.Backend.Context
+namespace FinalProjectIDS309.Context
 {
     public class DBContextConfig : DbContext
     {

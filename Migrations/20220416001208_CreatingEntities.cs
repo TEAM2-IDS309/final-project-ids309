@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace FinalProjectIDS309.Backend.Migrations
+namespace FinalProjectIDS309.Migrations
 {
     public partial class CreatingEntities : Migration
     {

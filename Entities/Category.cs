@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FinalProjectIDS309.Backend.Entities
+namespace FinalProjectIDS309.Entities
 {
     [Table("Category")]
     public class Category
