@@ -7,32 +7,33 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace FinalProjectIDS309.Migrations
 {
     [DbContext(typeof(DBContextConfig))]
-    [Migration("20220416001208_CreatingEntities")]
+    [Migration("20220419014756_CreatingEntities")]
     partial class CreatingEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            modelBuilder.Entity("FinalProjectIDS309.Entities.Category", b =>
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("FinalProjectIDS309.Models.CategoryModel", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -40,21 +41,19 @@ namespace FinalProjectIDS309.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("FinalProjectIDS309.Entities.Item", b =>
+            modelBuilder.Entity("FinalProjectIDS309.Models.ItemModel", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("IDCategory")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
@@ -67,9 +66,9 @@ namespace FinalProjectIDS309.Migrations
                     b.ToTable("Item");
                 });
 
-            modelBuilder.Entity("FinalProjectIDS309.Entities.Item", b =>
+            modelBuilder.Entity("FinalProjectIDS309.Models.ItemModel", b =>
                 {
-                    b.HasOne("FinalProjectIDS309.Entities.Category", "Category")
+                    b.HasOne("FinalProjectIDS309.Models.CategoryModel", "Category")
                         .WithMany("Items")
                         .HasForeignKey("IDCategory")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -78,7 +77,7 @@ namespace FinalProjectIDS309.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("FinalProjectIDS309.Entities.Category", b =>
+            modelBuilder.Entity("FinalProjectIDS309.Models.CategoryModel", b =>
                 {
                     b.Navigation("Items");
                 });
