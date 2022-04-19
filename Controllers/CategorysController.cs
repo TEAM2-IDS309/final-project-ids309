@@ -150,5 +150,10 @@ namespace FinalProjectIDS309.Controllers
         {
             return _context.Categories.Any(e => e.ID == id);
         }
+
+        public IActionResult Items()
+        {
+            return RedirectToAction(nameof(Index));            
+        }
     }
 }
