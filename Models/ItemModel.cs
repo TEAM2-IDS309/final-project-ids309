@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace FinalProjectIDS309.Entities
+namespace FinalProjectIDS309.Models
 {
     [Table("Item")]
     public class ItemModel
