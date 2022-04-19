@@ -1,4 +1,4 @@
-﻿using FinalProjectIDS309.Entities;
+﻿using FinalProjectIDS309.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinalProjectIDS309.Context
