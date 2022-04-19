@@ -3,7 +3,7 @@
 namespace FinalProjectIDS309.Entities
 {
     [Table("Category")]
-    public class Category
+    public class CategoryModel
     {
         public Guid ID { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
@@ -11,6 +11,6 @@ namespace FinalProjectIDS309.Entities
 
         //FK
         [ForeignKey("IDCategory")]
-        public List<Item> Items { get; set; }
+        public List<ItemModel> Items { get; set; }
     }
 }

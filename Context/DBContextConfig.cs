@@ -5,8 +5,8 @@ namespace FinalProjectIDS309.Context
 {
     public class DBContextConfig : DbContext
     {
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Item> Items { get; set; }
+        public DbSet<CategoryModel> Categories { get; set; }
+        public DbSet<ItemModel> Items { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
         {
