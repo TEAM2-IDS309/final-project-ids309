@@ -10,22 +10,27 @@ using FinalProjectIDS309.Models;
 
 namespace FinalProjectIDS309.Controllers
 {
-    public class CategorysController : Controller
+    public class CategoriesController : Controller
     {
         private readonly DBContextConfig _context;
 
-        public CategorysController(DBContextConfig context)
+        public CategoriesController(DBContextConfig context)
         {
             _context = context;
         }
 
-        // GET: Categorys
+        // GET: Categories
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categories.ToListAsync());
         }
 
-        // GET: Categorys/Details/5
+        public IActionResult Items()
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Categories/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -43,13 +48,13 @@ namespace FinalProjectIDS309.Controllers
             return View(categoryModel);
         }
 
-        // GET: Categorys/Create
+        // GET: Categories/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categorys/Create
+        // POST: Categories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -66,7 +71,7 @@ namespace FinalProjectIDS309.Controllers
             return View(categoryModel);
         }
 
-        // GET: Categorys/Edit/5
+        // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -82,7 +87,7 @@ namespace FinalProjectIDS309.Controllers
             return View(categoryModel);
         }
 
-        // POST: Categorys/Edit/5
+        // POST: Categories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -117,7 +122,7 @@ namespace FinalProjectIDS309.Controllers
             return View(categoryModel);
         }
 
-        // GET: Categorys/Delete/5
+        // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -135,7 +140,7 @@ namespace FinalProjectIDS309.Controllers
             return View(categoryModel);
         }
 
-        // POST: Categorys/Delete/5
+        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
@@ -149,11 +154,6 @@ namespace FinalProjectIDS309.Controllers
         private bool CategoryModelExists(Guid id)
         {
             return _context.Categories.Any(e => e.ID == id);
-        }
-
-        public IActionResult Items()
-        {
-            return RedirectToAction(nameof(Index));            
         }
     }
 }
