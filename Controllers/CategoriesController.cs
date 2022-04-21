@@ -25,9 +25,10 @@ namespace FinalProjectIDS309.Controllers
             return View(await _context.Categories.ToListAsync());
         }
 
-        public IActionResult Items()
+        public async Task<IActionResult> Items(string name)
         {
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Items", new { myUrl =  name});
+
         }
 
         // GET: Categories/Details/5

@@ -10,25 +10,22 @@ using FinalProjectIDS309.Models;
 
 namespace FinalProjectIDS309.Controllers
 {
-    public class ItemsController : Controller
+    public class CategoryController : Controller
     {
         private readonly DBContextConfig _context;
 
-        public ItemsController(DBContextConfig context)
+        public CategoryController(DBContextConfig context)
         {
             _context = context;
         }
 
-        // GET: Items
-        public async Task<IActionResult> Index(string myUrl)
+        // GET: Category
+        public async Task<IActionResult> Index()
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(i => i.Name == myUrl);
-
-            var dBContextConfig = _context.Items.Include(i => i.Category).Where(i => i.IDCategory == category.ID);
-            return View(await dBContextConfig.ToListAsync());
+            return View(await _context.Categories.ToListAsync());
         }
 
-        // GET: Items/Details/5
+        // GET: Category/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -36,43 +33,40 @@ namespace FinalProjectIDS309.Controllers
                 return NotFound();
             }
 
-            var itemModel = await _context.Items
-                .Include(i => i.Category)
+            var categoryModel = await _context.Categories
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (itemModel == null)
+            if (categoryModel == null)
             {
                 return NotFound();
             }
 
-            return View(itemModel);
+            return View(categoryModel);
         }
 
-        // GET: Items/Create
+        // GET: Category/Create
         public IActionResult Create()
         {
-            ViewData["IDCategory"] = new SelectList(_context.Categories, "ID", "ID");
             return View();
         }
 
-        // POST: Items/Create
+        // POST: Category/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Description,Quantity,IDCategory")] ItemModel itemModel)
+        public async Task<IActionResult> Create([Bind("ID,Name,Description")] CategoryModel categoryModel)
         {
             if (ModelState.IsValid)
             {
-                itemModel.ID = Guid.NewGuid();
-                _context.Add(itemModel);
+                categoryModel.ID = Guid.NewGuid();
+                _context.Add(categoryModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IDCategory"] = new SelectList(_context.Categories, "ID", "ID", itemModel.IDCategory);
-            return View(itemModel);
+            return View(categoryModel);
         }
 
-        // GET: Items/Edit/5
+        // GET: Category/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -80,23 +74,22 @@ namespace FinalProjectIDS309.Controllers
                 return NotFound();
             }
 
-            var itemModel = await _context.Items.FindAsync(id);
-            if (itemModel == null)
+            var categoryModel = await _context.Categories.FindAsync(id);
+            if (categoryModel == null)
             {
                 return NotFound();
             }
-            ViewData["IDCategory"] = new SelectList(_context.Categories, "ID", "ID", itemModel.IDCategory);
-            return View(itemModel);
+            return View(categoryModel);
         }
 
-        // POST: Items/Edit/5
+        // POST: Category/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ID,Name,Description,Quantity,IDCategory")] ItemModel itemModel)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ID,Name,Description")] CategoryModel categoryModel)
         {
-            if (id != itemModel.ID)
+            if (id != categoryModel.ID)
             {
                 return NotFound();
             }
@@ -105,12 +98,12 @@ namespace FinalProjectIDS309.Controllers
             {
                 try
                 {
-                    _context.Update(itemModel);
+                    _context.Update(categoryModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ItemModelExists(itemModel.ID))
+                    if (!CategoryModelExists(categoryModel.ID))
                     {
                         return NotFound();
                     }
@@ -121,11 +114,10 @@ namespace FinalProjectIDS309.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IDCategory"] = new SelectList(_context.Categories, "ID", "ID", itemModel.IDCategory);
-            return View(itemModel);
+            return View(categoryModel);
         }
 
-        // GET: Items/Delete/5
+        // GET: Category/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -133,31 +125,30 @@ namespace FinalProjectIDS309.Controllers
                 return NotFound();
             }
 
-            var itemModel = await _context.Items
-                .Include(i => i.Category)
+            var categoryModel = await _context.Categories
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (itemModel == null)
+            if (categoryModel == null)
             {
                 return NotFound();
             }
 
-            return View(itemModel);
+            return View(categoryModel);
         }
 
-        // POST: Items/Delete/5
+        // POST: Category/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var itemModel = await _context.Items.FindAsync(id);
-            _context.Items.Remove(itemModel);
+            var categoryModel = await _context.Categories.FindAsync(id);
+            _context.Categories.Remove(categoryModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ItemModelExists(Guid id)
+        private bool CategoryModelExists(Guid id)
         {
-            return _context.Items.Any(e => e.ID == id);
+            return _context.Categories.Any(e => e.ID == id);
         }
     }
 }
