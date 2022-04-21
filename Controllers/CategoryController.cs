@@ -10,28 +10,22 @@ using FinalProjectIDS309.Models;
 
 namespace FinalProjectIDS309.Controllers
 {
-    public class CategoriesController : Controller
+    public class CategoryController : Controller
     {
         private readonly DBContextConfig _context;
 
-        public CategoriesController(DBContextConfig context)
+        public CategoryController(DBContextConfig context)
         {
             _context = context;
         }
 
-        // GET: Categories
+        // GET: Category
         public async Task<IActionResult> Index()
         {
             return View(await _context.Categories.ToListAsync());
         }
 
-        public async Task<IActionResult> Items(string name)
-        {
-            return RedirectToAction("Index", "Items", new { myUrl =  name});
-
-        }
-
-        // GET: Categories/Details/5
+        // GET: Category/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -49,13 +43,13 @@ namespace FinalProjectIDS309.Controllers
             return View(categoryModel);
         }
 
-        // GET: Categories/Create
+        // GET: Category/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Category/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -72,7 +66,7 @@ namespace FinalProjectIDS309.Controllers
             return View(categoryModel);
         }
 
-        // GET: Categories/Edit/5
+        // GET: Category/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -88,7 +82,7 @@ namespace FinalProjectIDS309.Controllers
             return View(categoryModel);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Category/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -123,7 +117,7 @@ namespace FinalProjectIDS309.Controllers
             return View(categoryModel);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Category/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -141,7 +135,7 @@ namespace FinalProjectIDS309.Controllers
             return View(categoryModel);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Category/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

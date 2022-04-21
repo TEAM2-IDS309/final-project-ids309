@@ -11,7 +11,7 @@ namespace FinalProjectIDS309.Context
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-      optionsBuilder.UseSqlServer(_config.GetConnectionString("DbConnection"));
+      optionsBuilder.UseSqlServer(_config.GetConnectionString("WinDBConnection"));
     }
 
     public DBContextConfig(IConfiguration config)

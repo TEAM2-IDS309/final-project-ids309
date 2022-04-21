@@ -27,23 +27,13 @@ namespace FinalProjectIDS309.Controllers
       return View(await dBContextConfig.ToListAsync());
     }
 
-    // GET: Items/Details/5
-    public async Task<IActionResult> Details(Guid? id)
+    // GET: Items
+    public async Task<IActionResult> Index(string myUrl)
     {
-      if (id == null)
-      {
-        return NotFound();
-      }
+      var category = await _context.Categories.FirstOrDefaultAsync(i => i.Name == myUrl);
 
-      var itemModel = await _context.Items
-          .Include(i => i.Category)
-          .FirstOrDefaultAsync(m => m.ID == id);
-      if (itemModel == null)
-      {
-        return NotFound();
-      }
-
-      return View(itemModel);
+      var dBContextConfig = _context.Items.Include(i => i.Category).Where(i => i.IDCategory == category.ID);
+      return View(await dBContextConfig.ToListAsync());
     }
 
     // GET: Items/Create
