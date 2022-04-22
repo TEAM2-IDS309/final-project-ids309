@@ -65,7 +65,12 @@ namespace FinalProjectIDS309.Controllers
             {
                 return NotFound();
             }
-            ViewData["IDCategory"] = new SelectList(_context.Categories, "ID", "ID", itemModel.IDCategory);
+            //ViewData["IDCategory"] = new SelectList(_context.Categories, "ID", "ID", itemModel.IDCategory);
+             
+            var category =_context.Categories.Where(x => x.ID == itemModel.IDCategory).FirstOrDefault();
+
+            ViewBag.IDCategory = category.ID;
+
             return View(itemModel);
         }
 
@@ -85,8 +90,15 @@ namespace FinalProjectIDS309.Controllers
             {
                 try
                 {
-                    _context.Update(itemModel);
+                    var item = _context.Items.Where(x => x.ID == itemModel.ID).FirstOrDefault();
+                    item.Name = itemModel.Name;
+                    item.Description = itemModel.Description;
+                    item.Quantity = itemModel.Quantity;
+                                       
+                    _context.Update(item);
                     await _context.SaveChangesAsync();
+
+                    itemModel = item;
                 }
                 catch (DbUpdateConcurrencyException)
                 {

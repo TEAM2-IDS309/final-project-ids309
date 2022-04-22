@@ -35,6 +35,12 @@
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
+            <!-- <div contentEditable="false" class="form-group">
+                @* <label asp-for="IDCategory">@ViewBag.IDCategory</label>
+                @Html.DisplayText(@ViewBag.IDCategory)) *@
+                <input asp-for="IDCategory" class="form-control" asp-items="ViewBag.IDCategory" readonly>
+                <span asp-validation-for="IDCategory" class="text-danger"></span>
+            </div> -->
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
