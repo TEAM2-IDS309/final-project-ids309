@@ -27,15 +27,6 @@ namespace FinalProjectIDS309.Controllers
             return View(await dBContextConfig.ToListAsync());
         }
 
-        // GET: Items
-        public async Task<IActionResult> Index(string myUrl)
-        {
-            var category = await _context.Categories.FirstOrDefaultAsync(i => i.Name == myUrl);
-
-            var dBContextConfig = _context.Items.Include(i => i.Category).Where(i => i.IDCategory == category.ID);
-            return View(await dBContextConfig.ToListAsync());
-        }
-
         // GET: Items/Create
         public IActionResult Create()
         {
@@ -55,7 +46,7 @@ namespace FinalProjectIDS309.Controllers
                 itemModel.ID = Guid.NewGuid();
                 _context.Add(itemModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ByCategory), new {id = itemModel.IDCategory});
             }
             ViewData["IDCategory"] = new SelectList(_context.Categories, "ID", "ID", itemModel.IDCategory);
             return View(itemModel);
@@ -108,7 +99,7 @@ namespace FinalProjectIDS309.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ByCategory), new {id = itemModel.IDCategory});
             }
             ViewData["IDCategory"] = new SelectList(_context.Categories, "ID", "ID", itemModel.IDCategory);
             return View(itemModel);
@@ -158,7 +149,7 @@ namespace FinalProjectIDS309.Controllers
             var itemModel = await _context.Items.FindAsync(id);
             _context.Items.Remove(itemModel);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ByCategory), new {id = itemModel.IDCategory});
         }
 
         private bool ItemModelExists(Guid id)
