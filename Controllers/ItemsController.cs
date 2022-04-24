@@ -29,14 +29,23 @@ namespace FinalProjectIDS309.Controllers
 
         // GET: Items/Create
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create(Guid? id)
         {
-            string path = HttpContext.Request.Path;
-            string lastPart = path.Split('/').Last();
-            Guid IdCat = Guid.Parse(lastPart);
 
-            ViewData["IDCategory"] = new SelectList(_context.Categories, "ID", "ID");
-            ViewBag.IdCat = IdCat;
+            List<SelectListItem> Categories = new List<SelectListItem>();
+            List<CategoryModel> ExistingCategories = await _context.Categories.ToListAsync();
+
+            foreach(var category in ExistingCategories){
+                SelectListItem Category = new() { Value = category.ID.ToString(), Text = category.Name };
+
+                if(category.ID.Equals(id)) {
+                   Category.Selected = true;
+                }
+                Categories.Add(Category);
+            }
+
+            ViewBag.IdCat = id.ToString();
+            ViewData["Categories"] = Categories;
             return View();
         }
 
