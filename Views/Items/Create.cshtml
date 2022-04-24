@@ -2,6 +2,7 @@
 
 @{
     Layout = null;
+   Guid IdCat = (Guid)ViewBag.IdCat;
 }
 
 <!DOCTYPE html>
@@ -46,9 +47,9 @@
 </div>
 
 <div>
-    <a asp-action="ByCategory" asp-route-id="@Model?.IDCategory">Back to List</a>
+    <a asp-action="ByCategory" asp-route-id="@IdCat"   >Back to List</a>
 </div>
-
+@*asp-route-id="IdCategory"*@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -9,7 +9,7 @@
     <p>Category:</p>
     <h1>@Model.CategoryName</h1>
   </div>
-    <a type="button" class="btn btn-dark" asp-controller="Items" asp-action="Create">Add item</a>
+    <a type="button" class="btn btn-dark" asp-route-id="@Model.categoryId"  asp-controller="Items" asp-action="Create">Add item</a>
 </div>
 <table class="table table-striped">
   <thead>

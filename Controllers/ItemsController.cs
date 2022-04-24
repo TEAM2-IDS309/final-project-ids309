@@ -28,9 +28,15 @@ namespace FinalProjectIDS309.Controllers
         }
 
         // GET: Items/Create
+        [HttpGet]
         public IActionResult Create()
         {
+            string path = HttpContext.Request.Path;
+            string lastPart = path.Split('/').Last();
+            Guid IdCat = Guid.Parse(lastPart);
+
             ViewData["IDCategory"] = new SelectList(_context.Categories, "ID", "ID");
+            ViewBag.IdCat = IdCat;
             return View();
         }
 
@@ -180,6 +186,7 @@ namespace FinalProjectIDS309.Controllers
 
             CategoryItemsViewModel model = new CategoryItemsViewModel()
             {
+                categoryId= id,
                 CategoryName = Cartegory.Name,
                 Items = await ItemsQuery.ToListAsync()
             };
