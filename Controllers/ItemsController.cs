@@ -54,11 +54,13 @@ namespace FinalProjectIDS309.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Description,Quantity,IDCategory")] ItemModel itemModel)
+        public async Task<IActionResult> Create([Bind("ID,Name,Description,Quantity,IDCategory")] ItemModel itemModel, Guid id)
         {
             if (ModelState.IsValid)
             {
                 itemModel.ID = Guid.NewGuid();
+                itemModel.IDCategory = id;
+                
                 _context.Add(itemModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(ByCategory), new {id = itemModel.IDCategory});
