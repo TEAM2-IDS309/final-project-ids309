@@ -1,0 +1,50 @@
+﻿@model IEnumerable<FinalProjectIDS309.Models.CategoryModel>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-3">Categories</h1>
+        <a class="btn btn-dark" asp-action="Create">Create category</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                <th>Items</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>
+                        <a asp-controller="Items" asp-action="ByCategory" asp-route-id="@item.ID"
+                        class=" text-decoration-none">
+                            <i class="bi bi-diagram-3"></i>
+                            <span class="ms-2">Show Items</span>
+                        </a>
+                    </td>
+                    <td>
+                        <div class="d-flex gap-3">
+                            <a asp-action="Edit" asp-route-id="@item.ID" class="text-dark">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.ID" class="text-dark">
+                                <i class="bi bi-info-circle"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.ID" class="text-dark">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
